@@ -27,17 +27,17 @@ class MapSampleState extends State<MapSample> {
   BitmapDescriptor mapMarker;
   @override
   void initState() {
-    super.initState();
-    setCustomMarker();
-  }
-  void setCustomMarker() async{
-  mapMarker= await BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(55,55)), "assets/homeMarker1.png");
-  }
+    BitmapDescriptor.fromAssetImage(ImageConfiguration( size: Size(50,50)), "assets/homeMarker1.png").then((onValue) {
+
+      mapMarker=onValue;
+  });}
+
   void _onMapCreated(GoogleMapController controller) {
+    _markers.clear();
     _markers.add(Marker(
         markerId: MarkerId("first"),
         position: LatLng(32.43296265331129, 35.08832357078792),
-        //icon: mapMarker,
+        icon: mapMarker,
         infoWindow: InfoWindow(title: "nablus",snippet: "hiii")));
     setState(() {});
   }
